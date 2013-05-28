@@ -142,17 +142,20 @@ public class DashActivity extends Activity
      */
     @Override
     public void onConnected(Bundle dataBundle) {
-        showCurrentLocation(mLocationClient.getLastLocation());
+        showCurrentLocation(mLocationClient.getLastLocation(), null);
         mLocationClient.requestLocationUpdates(mLocationRequest, this);
     }
 
-	private void showCurrentLocation(Location currentLocation) {
+	void showCurrentLocation(Location currentLocation, String address) {
 		if (currentLocation == null)
 			return;
 		Time fixTime = new Time();
 		fixTime.set(currentLocation.getTime());
 		String s = currentLocation.toString() + "\n" +
 			fixTime.format3339(false);
+		if (address != null) {
+			s += "\n" + address;
+		}
 		mAddress.setText(s);
 	}
     
@@ -164,7 +167,8 @@ public class DashActivity extends Activity
     }
     @Override
     public void onLocationChanged(Location location) {
-        showCurrentLocation(location);
+    	// TODO: Only do lookups when the display is visible?
+        (new AddressLookupTask(this, this)).execute(location);
     }
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
@@ -193,5 +197,4 @@ public class DashActivity extends Activity
                     Toast.LENGTH_SHORT).show();
         }
     }
-
 }

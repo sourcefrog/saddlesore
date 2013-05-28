@@ -1,3 +1,5 @@
 gen/*
 bin/*
 *~
+libs/*cache
+libs/google-play-services_lib/bin/jarlist.cache
