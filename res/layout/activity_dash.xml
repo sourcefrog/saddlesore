@@ -15,4 +15,13 @@
         android:text="@string/hello_world"
         android:textSize="18sp" />
 
+    <TextView
+        android:id="@+id/activityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="(activity)"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>
